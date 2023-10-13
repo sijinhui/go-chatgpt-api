@@ -4,7 +4,7 @@ services:
     container_name: go-chatgpt-api
     image: linweiyuan/go-chatgpt-api
     ports:
-      - 28080:8080
+      - "28080:8080"
     environment:
       - PORT=
       - TZ=Asia/Shanghai
@@ -20,6 +20,8 @@ services:
     restart: unless-stopped
     extra_hosts:
       -  host.docker.internal:host-gateway
+    depends_on:
+      - arkoselabs_token_api.get
   arkoselabs_token_api.get:
     container_name: arkoselabs_token_api.get
     image: 24802117/arkoselabs_token_api.get:latest
@@ -33,3 +35,5 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped
+    ports:
+      - "28081:8080"
